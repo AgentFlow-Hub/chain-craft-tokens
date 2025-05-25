@@ -210,6 +210,10 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
   const suggestedWebsites = getSuggestedWebsites();
   const aiTwitterHandle = getAITwitterHandle();
 
+  // Add console log to debug button text
+  const buttonText = isCreating ? 'Creating Token...' : `Create ${tokenData.name || 'Token'}`;
+  console.log('Button text:', buttonText);
+
   return (
     <Card className="bg-gradient-to-br from-crypto-purple/20 to-crypto-blue/20 border-crypto-purple/30 backdrop-blur-sm bg-slate-900">
       <CardHeader className="bg-slate-900">
@@ -320,7 +324,7 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
             disabled={!canCreate || isCreating} 
             className="w-full bg-gradient-to-r from-crypto-neon-purple to-crypto-neon-blue hover:shadow-lg hover:shadow-crypto-neon-purple/50 transition-all duration-300 h-12 text-lg font-semibold disabled:opacity-50"
           >
-            {isCreating ? 'Creating Token...' : `Create ${tokenData.name || 'Token'}`}
+            {buttonText}
           </Button>
           
           {!wallet && (
