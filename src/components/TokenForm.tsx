@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +8,6 @@ import { Separator } from '@/components/ui/separator';
 import { Coins, Zap, Globe, Twitter } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { WalletConnection } from '@/utils/wallet';
-
 interface TokenData {
   name: string;
   symbol: string;
@@ -20,11 +18,9 @@ interface TokenData {
   websiteDomain: string;
   twitterHandle: string;
 }
-
 interface TokenFormProps {
   wallet: WalletConnection | null;
 }
-
 const TokenForm: React.FC<TokenFormProps> = ({
   wallet
 }) => {
@@ -42,7 +38,6 @@ const TokenForm: React.FC<TokenFormProps> = ({
   const {
     toast
   } = useToast();
-
   const handleInputChange = (field: keyof TokenData, value: string) => {
     setTokenData(prev => ({
       ...prev,
@@ -54,12 +49,7 @@ const TokenForm: React.FC<TokenFormProps> = ({
   const getSuggestedWebsites = () => {
     if (!tokenData.name) return [];
     const cleanName = tokenData.name.toLowerCase().replace(/\s+/g, '');
-    return [
-      `${cleanName}.io`,
-      `${cleanName}.com`,
-      `${cleanName}coin.com`,
-      `${cleanName}token.io`
-    ];
+    return [`${cleanName}.io`, `${cleanName}.com`, `${cleanName}coin.com`, `${cleanName}token.io`];
   };
 
   // Generate AI Twitter handle based on token name
@@ -68,7 +58,6 @@ const TokenForm: React.FC<TokenFormProps> = ({
     const cleanName = tokenData.name.toLowerCase().replace(/\s+/g, '');
     return `@${cleanName}AI`;
   };
-
   const handleCreateToken = async () => {
     if (!wallet || wallet.chainId !== 97) {
       toast({
@@ -123,12 +112,10 @@ const TokenForm: React.FC<TokenFormProps> = ({
       setIsCreating(false);
     }
   };
-
   const isFormValid = tokenData.name && tokenData.symbol && tokenData.totalSupply;
   const canCreate = wallet && wallet.chainId === 97 && isFormValid;
   const suggestedWebsites = getSuggestedWebsites();
   const aiTwitterHandle = getAITwitterHandle();
-
   return <Card className="bg-gradient-to-br from-crypto-purple/20 to-crypto-blue/20 border-crypto-purple/30 backdrop-blur-sm bg-slate-900">
       <CardHeader className="bg-slate-900">
         <CardTitle className="text-white flex items-center gap-2">
@@ -160,8 +147,7 @@ const TokenForm: React.FC<TokenFormProps> = ({
         </div>
 
         {/* Website Suggestions */}
-        {suggestedWebsites.length > 0 && (
-          <>
+        {suggestedWebsites.length > 0 && <>
             <Separator className="bg-crypto-purple/30" />
             <div className="space-y-4">
               <h4 className="text-crypto-cyan font-medium flex items-center gap-2">
@@ -169,64 +155,32 @@ const TokenForm: React.FC<TokenFormProps> = ({
                 Website
               </h4>
               <div className="grid grid-cols-2 gap-2">
-                {suggestedWebsites.map((website, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleInputChange('websiteDomain', website)}
-                    className="text-left p-2 rounded bg-black/20 border border-crypto-purple/30 text-gray-300 hover:text-white hover:border-crypto-purple/50 transition-colors"
-                  >
+                {suggestedWebsites.map((website, index) => <button key={index} onClick={() => handleInputChange('websiteDomain', website)} className="text-left p-2 rounded bg-black/20 border border-crypto-purple/30 text-gray-300 hover:text-white hover:border-crypto-purple/50 transition-colors">
                     {website}
-                  </button>
-                ))}
+                  </button>)}
               </div>
             </div>
-          </>
-        )}
+          </>}
 
         {/* AI Generated Twitter Handle */}
-        {aiTwitterHandle && (
-          <>
+        {aiTwitterHandle && <>
             <Separator className="bg-crypto-purple/30" />
             <div className="space-y-4">
               <h4 className="text-crypto-cyan font-medium flex items-center gap-2">
                 <Twitter className="h-4 w-4" />
                 Twitter
               </h4>
-              <button
-                onClick={() => handleInputChange('twitterHandle', aiTwitterHandle)}
-                className="w-full text-left p-3 rounded bg-black/20 border border-crypto-purple/30 text-gray-300 hover:text-white hover:border-crypto-purple/50 transition-colors"
-              >
+              <button onClick={() => handleInputChange('twitterHandle', aiTwitterHandle)} className="w-full text-left p-3 rounded bg-black/20 border border-crypto-purple/30 text-gray-300 hover:text-white hover:border-crypto-purple/50 transition-colors">
                 <div className="text-lg">{aiTwitterHandle}</div>
                 <div className="text-sm text-gray-400 mt-1">AI-generated Twitter Handle</div>
               </button>
             </div>
-          </>
-        )}
+          </>}
 
         <Separator className="bg-crypto-purple/30" />
 
         {/* Social & Web */}
-        <div className="space-y-4">
-          <h4 className="text-crypto-cyan font-medium">Social & Website</h4>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="website" className="text-gray-300 flex items-center gap-2">
-                <Globe className="h-4 w-4" />
-                Website Domain
-              </Label>
-              <Input id="website" placeholder="moondogeai.io" value={tokenData.websiteDomain} onChange={e => handleInputChange('websiteDomain', e.target.value)} className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400" />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="twitter" className="text-gray-300 flex items-center gap-2">
-                <Twitter className="h-4 w-4" />
-                Twitter Handle
-              </Label>
-              <Input id="twitter" placeholder="@MoonDogeAI" value={tokenData.twitterHandle} onChange={e => handleInputChange('twitterHandle', e.target.value)} className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400" />
-            </div>
-          </div>
-        </div>
+        
 
         {/* Create Button */}
         <div className="pt-6">
@@ -245,5 +199,4 @@ const TokenForm: React.FC<TokenFormProps> = ({
       </CardContent>
     </Card>;
 };
-
 export default TokenForm;
