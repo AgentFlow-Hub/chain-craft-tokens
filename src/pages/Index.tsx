@@ -1,10 +1,13 @@
+
 import React, { useState } from 'react';
 import WalletConnect from '@/components/WalletConnect';
 import TokenForm from '@/components/TokenForm';
 import { WalletConnection } from '@/utils/wallet';
 import { Sparkles, Rocket, Shield, Zap } from 'lucide-react';
+
 const Index = () => {
   const [wallet, setWallet] = useState<WalletConnection | null>(null);
+  
   const features = [{
     icon: <Sparkles className="h-6 w-6" />,
     title: "AI-Powered",
@@ -22,24 +25,30 @@ const Index = () => {
     title: "Deflationary",
     description: "Built-in burn mechanisms to increase token value over time"
   }];
-  return <div className="min-h-screen bg-crypto-dark">
+
+  return (
+    <div className="min-h-screen bg-crypto-dark">
+      {/* Top Header with Wallet Connection */}
+      <header className="relative z-10 px-6 py-4">
+        <div className="max-w-7xl mx-auto flex justify-end">
+          <WalletConnect onConnectionChange={setWallet} />
+        </div>
+      </header>
+
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-neon-gradient opacity-10"></div>
-        
       </div>
 
       {/* Main Content */}
       <div className="px-6 py-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Wallet Connection - Sidebar */}
+            {/* Quick Stats - Sidebar */}
             <div className="lg:col-span-1">
               <div className="sticky top-6">
-                <WalletConnect onConnectionChange={setWallet} />
-                
                 {/* Quick Stats */}
-                <div className="mt-6 p-6 bg-gradient-to-br from-crypto-purple/10 to-crypto-blue/10 rounded-xl border border-crypto-purple/20 backdrop-blur-sm">
+                <div className="p-6 bg-gradient-to-br from-crypto-purple/10 to-crypto-blue/10 rounded-xl border border-crypto-purple/20 backdrop-blur-sm">
                   <h3 className="text-white font-semibold mb-4">Platform Stats</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
@@ -88,6 +97,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
