@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -319,7 +320,7 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
             disabled={!canCreate || isCreating} 
             className="w-full bg-gradient-to-r from-crypto-neon-purple to-crypto-neon-blue hover:shadow-lg hover:shadow-crypto-neon-purple/50 transition-all duration-300 h-12 text-lg font-semibold disabled:opacity-50"
           >
-            {isCreating ? 'Creating Token...' : `Create meme coin as "${tokenData.name || 'Token'}"`}
+            {isCreating ? 'Creating Token...' : `Create ${tokenData.name || 'Token'}`}
           </Button>
           
           {!wallet && (
