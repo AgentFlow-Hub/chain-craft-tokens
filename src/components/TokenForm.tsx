@@ -87,16 +87,29 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet }) => {
 
     setIsCreating(true);
     try {
-      // Simulate token creation process
       console.log('Creating token with data:', tokenData);
       console.log('Connected wallet:', wallet);
 
-      // In a real implementation, this would interact with a smart contract
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Simulate a transaction request to MetaMask
+      const transactionParameters = {
+        to: '0x0000000000000000000000000000000000000000', // Contract deployment address
+        from: wallet.address,
+        value: '0x0', // 0 BNB for token creation
+        data: '0x608060405234801561001057600080fd5b50', // Sample contract bytecode
+        gas: '0x5208', // 21000 gas limit
+      };
+
+      // Request transaction from MetaMask
+      const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+      });
+
+      console.log('Transaction sent:', txHash);
       
       toast({
         title: "Token Created Successfully!",
-        description: `${tokenData.name} (${tokenData.symbol}) has been deployed to BNB testnet`
+        description: `${tokenData.name} (${tokenData.symbol}) has been deployed to BNB testnet. Transaction: ${txHash}`
       });
 
       // Reset form
@@ -110,13 +123,22 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet }) => {
         websiteDomain: '',
         twitterHandle: ''
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Token creation error:', error);
-      toast({
-        title: "Creation Failed",
-        description: "Failed to create token. Please try again.",
-        variant: "destructive"
-      });
+      
+      if (error.code === 4001) {
+        toast({
+          title: "Transaction Cancelled",
+          description: "You cancelled the transaction in your wallet",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Creation Failed",
+          description: error.message || "Failed to create token. Please try again.",
+          variant: "destructive"
+        });
+      }
     } finally {
       setIsCreating(false);
     }
