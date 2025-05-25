@@ -22,20 +22,25 @@ interface TrendingTweetsProps {
 const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
   const getThemeSpecificTweets = (theme: string): Tweet[] => {
     const tweetTemplates = {
-      'AI Agents': [
-        { content: `The ${theme} revolution is accelerating! 🤖 New autonomous systems are reshaping how we work and interact with technology. The potential applications seem endless! #AIAgents #Automation`, likes: 5200, retweets: 987, replies: 231 },
-        { content: `Major breakthrough in ${theme}! 🚀 These intelligent systems are becoming more sophisticated daily. Everyone's discussing the implications for productivity and creativity. #AI #TechTrends`, likes: 3100, retweets: 654, replies: 189 },
-        { content: `${theme} trending analysis: Social engagement up 340%, sentiment overwhelmingly positive about autonomous AI capabilities! 📈 #AIAgents #Innovation`, likes: 1800, retweets: 432, replies: 156 }
+      'Degen Apes': [
+        { content: `${theme} community is absolutely wild! 🦍 The diamond hands energy is unmatched and the memes are fire. This narrative is bringing back the golden age of degen trading! #DegenApes #DiamondHands`, likes: 5200, retweets: 987, replies: 231 },
+        { content: `Just saw the ${theme} movement exploding on CT! 🚀 The community-driven approach and ape mentality is exactly what crypto needs right now. WAGMI apes! #DegenLife`, likes: 3100, retweets: 654, replies: 189 },
+        { content: `${theme} sentiment analysis: 340% increase in mentions, 95% positive sentiment. The ape army is building something special here! 📈 #CryptoTwitter`, likes: 1800, retweets: 432, replies: 156 }
       ],
-      'Election Drama': [
-        { content: `The ${theme} continues to dominate social feeds! 🗳️ Campaign strategies and debate highlights are generating massive engagement across platforms. #Election2024 #Politics`, likes: 8200, retweets: 1587, replies: 431 },
-        { content: `Breaking: Latest ${theme} developments! 📊 Polling data and campaign updates are driving unprecedented social media activity. The political discourse is intense! #ElectionNews`, likes: 6100, retweets: 954, replies: 289 },
-        { content: `${theme} social metrics: Engagement up 280%, political discussions at all-time high. The democratic process is capturing everyone's attention! 🇺🇸 #Democracy`, likes: 2800, retweets: 532, replies: 198 }
+      'AI Uprising': [
+        { content: `The ${theme} narrative is taking over! 🤖 AI agents are the future of trading and everyone's finally waking up to the potential. This is bigger than anyone realizes! #AIAgents #FutureOfFinance`, likes: 6200, retweets: 1187, replies: 331 },
+        { content: `${theme} discussion going parabolic! 🚀 Autonomous trading systems and AI-powered tokens are the next big thing. Early adopters will be rewarded! #AIRevolution`, likes: 4100, retweets: 754, replies: 289 },
+        { content: `${theme} social metrics off the charts: 440% engagement spike, tech Twitter is all over this narrative! The AI revolution in crypto is here! 📊 #TechTwitter`, likes: 2800, retweets: 532, replies: 198 }
+      ],
+      'Moon Mission': [
+        { content: `${theme} energy is infectious! 🌙 The rocket ship vibes and space exploration narrative is capturing everyone's imagination. To the moon and beyond! #MoonMission #SpaceVibes`, likes: 4800, retweets: 887, replies: 221 },
+        { content: `${theme} community building something legendary! 🚀 The deflationary mechanics combined with space memes is pure genius. Buckle up for liftoff! #ToTheMoon`, likes: 3600, retweets: 644, replies: 179 },
+        { content: `${theme} trending hard: 380% mention increase, space and rocket emojis everywhere! The cosmic narrative is resonating perfectly! 🛸 #SpaceTwitter`, likes: 2200, retweets: 412, replies: 134 }
       ],
       'default': [
-        { content: `The ${selectedTheme || 'trending topic'} conversation is exploding! 🔥 Seeing incredible engagement and community growth. This topic is really resonating with people right now. #Trending #Social`, likes: 5200, retweets: 987, replies: 231 },
-        { content: `Major developments in ${selectedTheme || 'current trends'}! 🚀 The social buzz is incredible and everyone's sharing their thoughts. This is definitely the topic of the moment. #Viral #Trending`, likes: 3100, retweets: 654, replies: 189 },
-        { content: `${selectedTheme || 'Hot topic'} trending analysis: Social mentions up 340%, positive sentiment dominating. The community engagement is absolutely phenomenal! 📈 #TrendingNow`, likes: 1800, retweets: 432, replies: 156 }
+        { content: `The ${selectedTheme || 'trending narrative'} is absolutely exploding! 🔥 Seeing incredible community engagement and the memes are top tier. This is the kind of energy crypto needs! #CryptoTwitter #Trending`, likes: 5200, retweets: 987, replies: 231 },
+        { content: `${selectedTheme || 'This narrative'} is going parabolic on social! 🚀 The organic growth and community building is exactly what we love to see in this space. WAGMI! #CommunityFirst`, likes: 3100, retweets: 654, replies: 189 },
+        { content: `${selectedTheme || 'Hot narrative'} social analytics: 340% engagement spike, overwhelmingly positive sentiment. The community is building something special here! 📈 #SocialSentiment`, likes: 1800, retweets: 432, replies: 156 }
       ]
     };
 
@@ -43,13 +48,13 @@ const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
     
     return templates.map((template, index) => ({
       id: String(index + 1),
-      author: ['Sarah Chen', 'Marcus Data', 'Tech Insider'][index],
-      handle: ['@sarahchen_tech', '@marcusdata', '@techinsider_x'][index],
+      author: ['CryptoApe Mike', 'DegenTrader_X', 'MemeAnalyst'][index],
+      handle: ['@cryptoape_mike', '@degentrader_x', '@memeanalyst'][index],
       content: template.content,
       likes: template.likes,
       retweets: template.retweets,
       replies: template.replies,
-      time: ['25min', '3min', '1h'][index],
+      time: ['15min', '2min', '47min'][index],
       theme: selectedTheme || 'Trending'
     }));
   };
@@ -64,8 +69,8 @@ const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-crypto-purple/20 to-crypto-blue/20 border-crypto-purple/30 backdrop-blur-sm bg-slate-900">
-      <CardHeader className="bg-slate-900">
+    <Card className="bg-slate-900/80 border-slate-700/50 backdrop-blur-sm">
+      <CardHeader>
         <CardTitle className="text-white flex items-center gap-2">
           <Twitter className="h-6 w-6" />
           {selectedTheme || 'Trending'} Tweets
@@ -89,7 +94,7 @@ const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
           </span>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4 bg-slate-900">
+      <CardContent className="space-y-4">
         {tweets.map((tweet) => (
           <div key={tweet.id} className="p-4 bg-black/20 rounded-lg border border-crypto-purple/20 hover:border-crypto-purple/40 transition-colors">
             <div className="flex items-start gap-3">

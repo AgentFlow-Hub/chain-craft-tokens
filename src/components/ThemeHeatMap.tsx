@@ -20,16 +20,16 @@ const ThemeHeatMap: React.FC<ThemeHeatMapProps> = ({ onThemeSelect }) => {
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
   const themes: Theme[] = [
-    { name: "AI Agents", size: 120, color: "bg-gradient-to-br from-purple-500 to-pink-500", popularity: 95, description: "Autonomous AI systems and intelligent automation trending across social platforms" },
-    { name: "Election Drama", size: 115, color: "bg-gradient-to-br from-red-500 to-orange-500", popularity: 93, description: "Political campaigns, debates, and election predictions dominating conversations" },
-    { name: "Crypto Winter", size: 110, color: "bg-gradient-to-br from-blue-500 to-cyan-500", popularity: 90, description: "Market volatility, regulatory news, and institutional adoption discussions" },
-    { name: "Space Memes", size: 105, color: "bg-gradient-to-br from-indigo-500 to-purple-500", popularity: 87, description: "SpaceX launches, Mars missions, and astronomical discoveries going viral" },
-    { name: "Climate Action", size: 100, color: "bg-gradient-to-br from-green-600 to-teal-500", popularity: 85, description: "Environmental protests, green technology, and sustainability initiatives trending" },
-    { name: "Gaming Culture", size: 95, color: "bg-gradient-to-br from-orange-500 to-red-500", popularity: 82, description: "New game releases, esports tournaments, and gaming community discussions" },
-    { name: "Tech Layoffs", size: 90, color: "bg-gradient-to-br from-gray-500 to-slate-600", popularity: 80, description: "Job market changes, startup struggles, and tech industry transformation" },
-    { name: "Viral Dances", size: 85, color: "bg-gradient-to-br from-pink-500 to-rose-500", popularity: 78, description: "TikTok trends, dance challenges, and social media viral content" },
-    { name: "Health Tech", size: 80, color: "bg-gradient-to-br from-teal-500 to-blue-500", popularity: 75, description: "Medical breakthroughs, wellness apps, and digital health innovations" },
-    { name: "Food Trends", size: 75, color: "bg-gradient-to-br from-yellow-500 to-orange-500", popularity: 72, description: "Viral recipes, restaurant reviews, and culinary cultural moments" }
+    { name: "Degen Apes", size: 120, color: "bg-gradient-to-br from-purple-500 to-pink-500", popularity: 95, description: "Community-driven token inspired by legendary ape traders and diamond hands culture" },
+    { name: "AI Uprising", size: 115, color: "bg-gradient-to-br from-blue-500 to-cyan-500", popularity: 93, description: "Revolutionary AI agent token representing the future of autonomous trading systems" },
+    { name: "Moon Mission", size: 110, color: "bg-gradient-to-br from-yellow-500 to-orange-500", popularity: 90, description: "Deflationary rocket ship token designed for astronomical gains and space exploration vibes" },
+    { name: "Pepe Renaissance", size: 105, color: "bg-gradient-to-br from-green-500 to-teal-500", popularity: 87, description: "Revival of classic meme culture with modern DeFi mechanics and community governance" },
+    { name: "Diamond Hands", size: 100, color: "bg-gradient-to-br from-indigo-500 to-purple-500", popularity: 85, description: "Ultra-hodler token with burn mechanics rewarding long-term believers and strong hands" },
+    { name: "Shib Army", size: 95, color: "bg-gradient-to-br from-orange-500 to-red-500", popularity: 82, description: "Dog-themed community token building on the legacy of successful canine cryptocurrencies" },
+    { name: "Chad Energy", size: 90, color: "bg-gradient-to-br from-red-500 to-pink-500", popularity: 80, description: "Alpha mindset token for confident traders and market leaders with winning mentality" },
+    { name: "Wojak Feels", size: 85, color: "bg-gradient-to-br from-gray-500 to-blue-500", popularity: 78, description: "Emotional trading token capturing the feels of retail investors and market psychology" },
+    { name: "Based Gains", size: 80, color: "bg-gradient-to-br from-green-600 to-lime-500", popularity: 75, description: "Fundamentally sound token with based tokenomics and sustainable growth mechanisms" },
+    { name: "Space Karen", size: 75, color: "bg-gradient-to-br from-slate-500 to-gray-600", popularity: 72, description: "Satirical token commenting on tech billionaire space race and social media drama" }
   ];
 
   const handleThemeClick = (theme: Theme) => {
@@ -38,8 +38,8 @@ const ThemeHeatMap: React.FC<ThemeHeatMapProps> = ({ onThemeSelect }) => {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-crypto-purple/20 to-crypto-blue/20 border-crypto-purple/30 backdrop-blur-sm bg-slate-900">
-      <CardHeader className="bg-slate-900">
+    <Card className="bg-slate-900/80 border-slate-700/50 backdrop-blur-sm">
+      <CardHeader>
         <CardTitle className="text-white flex items-center gap-2">
           <TrendingUp className="h-6 w-6" />
           Theme Heat Map
@@ -48,7 +48,7 @@ const ThemeHeatMap: React.FC<ThemeHeatMapProps> = ({ onThemeSelect }) => {
           Based on previous 72 hours data, we analyzed X social data and discovered heat map of key themes
         </p>
       </CardHeader>
-      <CardContent className="bg-slate-900">
+      <CardContent>
         <div className="relative h-80 bg-black/20 rounded-lg p-4 overflow-hidden">
           <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-2">
             {themes.map((theme, index) => (
@@ -82,7 +82,7 @@ const ThemeHeatMap: React.FC<ThemeHeatMapProps> = ({ onThemeSelect }) => {
                 <p className="text-gray-300 text-sm mb-2">{selectedTheme.description}</p>
                 <div className="flex items-center justify-between">
                   <p className="text-crypto-neon-purple text-xs">Popularity: {selectedTheme.popularity}%</p>
-                  <span className="text-xs text-gray-400">Click to use this theme for token creation</span>
+                  <span className="text-xs text-gray-400">Trending narrative for token creation</span>
                 </div>
               </div>
             </div>
