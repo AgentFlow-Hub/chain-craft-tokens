@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -7,10 +8,12 @@ import { connectWallet, switchToBNBTestnet, isWalletConnected, WalletConnection 
 
 interface WalletConnectProps {
   onConnectionChange: (connection: WalletConnection | null) => void;
+  compact?: boolean;
 }
 
 const WalletConnect: React.FC<WalletConnectProps> = ({
-  onConnectionChange
+  onConnectionChange,
+  compact = false
 }) => {
   const [wallet, setWallet] = useState<WalletConnection | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -85,6 +88,46 @@ const WalletConnect: React.FC<WalletConnectProps> = ({
 
   const isOnBNBTestnet = wallet?.chainId === 97;
 
+  // Compact mode - just the button
+  if (compact) {
+    if (!wallet) {
+      return (
+        <Button 
+          onClick={handleConnect} 
+          disabled={isConnecting}
+          className="bg-gradient-to-r from-crypto-neon-purple to-crypto-neon-blue hover:shadow-lg hover:shadow-crypto-neon-purple/50 transition-all duration-300"
+        >
+          {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+        </Button>
+      );
+    }
+
+    return (
+      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 px-3 py-2 bg-black/20 rounded-lg">
+          {isOnBNBTestnet ? (
+            <CheckCircle className="h-4 w-4 text-green-400" />
+          ) : (
+            <AlertCircle className="h-4 w-4 text-yellow-400" />
+          )}
+          <span className="text-white font-mono text-sm">{formatAddress(wallet.address)}</span>
+        </div>
+        
+        {!isOnBNBTestnet && (
+          <Button 
+            onClick={switchToBNBTestnet} 
+            size="sm"
+            variant="outline" 
+            className="border-yellow-400 text-yellow-400 hover:bg-yellow-400/10"
+          >
+            Switch Network
+          </Button>
+        )}
+      </div>
+    );
+  }
+
+  // Full card mode
   return (
     <Card className="bg-gradient-to-br from-crypto-purple/20 to-crypto-blue/20 border-crypto-purple/30 backdrop-blur-sm">
       <CardContent className="p-6 bg-gray-900">
