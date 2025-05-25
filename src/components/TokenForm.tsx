@@ -90,13 +90,13 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet }) => {
       console.log('Creating token with data:', tokenData);
       console.log('Connected wallet:', wallet);
 
-      // Simulate a transaction request to MetaMask
+      // Simple transaction to demonstrate MetaMask interaction
+      // In a real implementation, this would deploy a token contract
       const transactionParameters = {
-        to: '0x0000000000000000000000000000000000000000', // Contract deployment address
+        to: wallet.address, // Send to self as a demo
         from: wallet.address,
-        value: '0x0', // 0 BNB for token creation
-        data: '0x608060405234801561001057600080fd5b50', // Sample contract bytecode
-        gas: '0x5208', // 21000 gas limit
+        value: '0x0', // 0 BNB
+        gas: '0x5208', // 21000 gas limit (standard transfer)
       };
 
       // Request transaction from MetaMask
