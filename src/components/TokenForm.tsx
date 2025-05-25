@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,34 +39,53 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
   const [isCreating, setIsCreating] = useState(false);
   const { toast } = useToast();
 
-  // Generate description based on theme and token name
-  const generateDescription = (theme: string, tokenName: string) => {
-    const descriptions: { [key: string]: (name: string) => string } = {
-      'AI Agents': (name) => `• Revolutionary ${name} leveraging autonomous AI technology for intelligent automation\n• Advanced machine learning capabilities enabling self-improving token mechanisms\n• Community-driven governance powered by AI decision-making algorithms\n• Pioneering the future of decentralized artificial intelligence ecosystems`,
-      'Election Drama': (name) => `• ${name} capturing the political zeitgeist with democratic governance features\n• Transparent voting mechanisms reflecting real-world electoral processes\n• Community engagement through political discourse and debate rewards\n• Decentralized platform for political expression and civic participation`,
-      'Crypto Winter': (name) => `• ${name} designed to thrive during market downturns with deflationary mechanics\n• Bear market resilience through innovative tokenomics and community incentives\n• Strategic value accumulation during crypto winter conditions\n• Long-term holder rewards and stability-focused economic model`,
-      'Space Memes': (name) => `• ${name} reaching for the stars with cosmic-themed community initiatives\n• Interplanetary ambitions reflected in tokenomics and roadmap milestones\n• Space exploration narrative driving community engagement and growth\n• Astronomical potential with universe-scale vision and execution`,
-      'Climate Action': (name) => `• ${name} promoting environmental sustainability through green blockchain initiatives\n• Carbon-negative tokenomics supporting climate action and conservation projects\n• Community-driven environmental impact through decentralized green funding\n• Sustainable future vision with eco-friendly technology integration`,
-      'Gaming Culture': (name) => `• ${name} bridging gaming communities with play-to-earn mechanics and rewards\n• NFT integration for gaming assets and in-game utility across multiple platforms\n• Esports tournament funding and gaming ecosystem development initiatives\n• Player-owned economy empowering gamers through decentralized governance`,
-      'Tech Layoffs': (name) => `• ${name} supporting displaced tech workers through community funding and opportunities\n• Decentralized job marketplace and skill-sharing platform development\n• Innovation resilience during industry restructuring and economic uncertainty\n• Community-driven support network for technology professionals and entrepreneurs`,
-      'Viral Dances': (name) => `• ${name} celebrating viral culture with creator rewards and content monetization\n• Social media integration enabling seamless sharing and community engagement\n• Trend-based tokenomics rewarding early adopters and content creators\n• Cultural movement capturing the essence of digital expression and creativity`,
-      'Health Tech': (name) => `• ${name} revolutionizing healthcare through blockchain-based wellness incentives\n• Decentralized health data management with privacy-first approach\n• Community health initiatives funded through transparent token mechanisms\n• Medical innovation support through crowdfunded research and development`,
-      'Food Trends': (name) => `• ${name} satisfying the appetite for culinary innovation and community dining experiences\n• Restaurant and food creator support through decentralized funding mechanisms\n• Gastronomic adventures rewarded through taste-testing and review incentives\n• Culinary culture preservation and innovation through blockchain technology`
+  // Generate description based on token name and its benefits
+  const generateDescription = (tokenName: string, theme?: string) => {
+    if (!tokenName.trim()) return '';
+    
+    const cleanName = tokenName.trim();
+    
+    // Enhanced description generator focusing on the token itself
+    const generateTokenBenefits = (name: string) => {
+      const nameWords = name.toLowerCase().split(' ');
+      let benefits = [];
+      
+      // Core token benefits
+      benefits.push(`• ${name} is a revolutionary cryptocurrency designed to empower its community with innovative blockchain technology`);
+      
+      // Deflationary mechanics
+      benefits.push(`• Built-in deflationary mechanisms automatically burn ${name} tokens to increase scarcity and value over time`);
+      
+      // Community benefits based on name characteristics
+      if (nameWords.some(word => ['ai', 'agent', 'smart', 'auto'].includes(word))) {
+        benefits.push(`• Advanced AI-powered features enable ${name} holders to benefit from automated trading and intelligent market analysis`);
+      } else if (nameWords.some(word => ['meme', 'fun', 'community', 'social'].includes(word))) {
+        benefits.push(`• Strong community-driven governance allows ${name} holders to vote on key decisions and shape the token's future`);
+      } else if (nameWords.some(word => ['defi', 'finance', 'yield', 'stake'].includes(word))) {
+        benefits.push(`• DeFi integration provides ${name} holders with staking rewards and yield farming opportunities`);
+      } else {
+        benefits.push(`• Innovative tokenomics reward long-term ${name} holders with exclusive benefits and governance rights`);
+      }
+      
+      // Utility and ecosystem
+      benefits.push(`• ${name} serves as the native utility token for its ecosystem, providing access to premium features and reduced transaction fees`);
+      
+      return benefits.join('\n');
     };
-
-    return descriptions[theme]?.(tokenName) || `• ${tokenName} capturing the essence of ${theme} through innovative blockchain technology\n• Community-driven initiatives reflecting current social and cultural trends\n• Decentralized platform for ${theme.toLowerCase()} enthusiasts and supporters\n• Revolutionary approach to combining trending topics with cryptocurrency innovation`;
+    
+    return generateTokenBenefits(cleanName);
   };
 
-  // Auto-generate description when theme or name changes
+  // Auto-generate description when name changes
   useEffect(() => {
-    if (selectedTheme && tokenData.name) {
-      const generatedDescription = generateDescription(selectedTheme, tokenData.name);
+    if (tokenData.name) {
+      const generatedDescription = generateDescription(tokenData.name, selectedTheme);
       setTokenData(prev => ({
         ...prev,
         description: generatedDescription
       }));
     }
-  }, [selectedTheme, tokenData.name]);
+  }, [tokenData.name, selectedTheme]);
 
   // Pre-fill form when theme is selected
   useEffect(() => {
@@ -236,11 +254,11 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
           <div className="space-y-2">
             <Label htmlFor="description" className="text-gray-300">
               Description 
-              {selectedTheme && <span className="text-crypto-cyan text-xs ml-2">(Auto-generated based on {selectedTheme})</span>}
+              <span className="text-crypto-cyan text-xs ml-2">(Auto-generated based on token name)</span>
             </Label>
             <Textarea 
               id="description" 
-              placeholder="Token description will be auto-generated based on theme and name..." 
+              placeholder="Token description will be auto-generated based on token name..." 
               value={tokenData.description} 
               onChange={e => handleInputChange('description', e.target.value)} 
               className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400 min-h-[120px]" 
