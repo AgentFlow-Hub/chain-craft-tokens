@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -23,9 +22,10 @@ interface TokenData {
 
 interface TokenFormProps {
   wallet: WalletConnection | null;
+  selectedTheme?: string;
 }
 
-const TokenForm: React.FC<TokenFormProps> = ({ wallet }) => {
+const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
   const [tokenData, setTokenData] = useState<TokenData>({
     name: '',
     symbol: '',
@@ -38,6 +38,29 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet }) => {
   });
   const [isCreating, setIsCreating] = useState(false);
   const { toast } = useToast();
+
+  // Pre-fill form when theme is selected
+  useEffect(() => {
+    if (selectedTheme) {
+      const themeDescriptions: { [key: string]: string } = {
+        'AI': 'Revolutionary AI-powered meme coin bringing artificial intelligence to the masses',
+        'DOGE': 'Much wow, very crypto - the original dog meme coin reborn',
+        'PEPE': 'Rare pepe meme coin for the true connoisseurs of internet culture',
+        'SHIB': 'Shiba Inu ecosystem token with community-driven governance',
+        'FLOKI': 'Viking-themed dog coin inspired by Elon Musk\'s pet',
+        'WOJAK': 'Feels good man - the emotional meme coin for every trader',
+        'TURBO': 'High-speed meme coin for the fast-paced crypto world',
+        'BONK': 'Solana\'s favorite dog coin bringing fun to DeFi'
+      };
+
+      setTokenData(prev => ({
+        ...prev,
+        name: `${selectedTheme} Agent Coin`,
+        symbol: `${selectedTheme.substring(0, 4).toUpperCase()}AI`,
+        description: themeDescriptions[selectedTheme] || `${selectedTheme}-themed AI agent meme coin`
+      }));
+    }
+  }, [selectedTheme]);
 
   const handleInputChange = (field: keyof TokenData, value: string) => {
     setTokenData(prev => ({
@@ -155,6 +178,11 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet }) => {
         <CardTitle className="text-white flex items-center gap-2">
           <Coins className="h-6 w-6" />
           Token Configuration
+          {selectedTheme && (
+            <span className="ml-2 px-2 py-1 bg-crypto-neon-purple/20 rounded-full text-crypto-cyan text-sm">
+              {selectedTheme} Theme
+            </span>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
