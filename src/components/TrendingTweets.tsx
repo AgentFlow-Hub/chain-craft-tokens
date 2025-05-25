@@ -22,20 +22,20 @@ interface TrendingTweetsProps {
 const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
   const getThemeSpecificTweets = (theme: string): Tweet[] => {
     const tweetTemplates = {
-      'AI': [
-        { content: `The ${theme} revolution is here! 🤖 Latest breakthroughs in machine learning are changing everything. The community is buzzing with excitement about the potential applications. #AI #MachineLearning #Tech`, likes: 5200, retweets: 987, replies: 231 },
-        { content: `Major ${theme} announcement today! 🚀 The implications for automation and productivity are massive. Everyone's talking about the future possibilities. #ArtificialIntelligence #Innovation`, likes: 3100, retweets: 654, replies: 189 },
-        { content: `${theme} trending analysis: Social engagement up 340%, sentiment overwhelmingly positive. This technology is capturing everyone's imagination! 📈 #AI #TechTrends`, likes: 1800, retweets: 432, replies: 156 }
+      'AI Agents': [
+        { content: `The ${theme} revolution is accelerating! 🤖 New autonomous systems are reshaping how we work and interact with technology. The potential applications seem endless! #AIAgents #Automation`, likes: 5200, retweets: 987, replies: 231 },
+        { content: `Major breakthrough in ${theme}! 🚀 These intelligent systems are becoming more sophisticated daily. Everyone's discussing the implications for productivity and creativity. #AI #TechTrends`, likes: 3100, retweets: 654, replies: 189 },
+        { content: `${theme} trending analysis: Social engagement up 340%, sentiment overwhelmingly positive about autonomous AI capabilities! 📈 #AIAgents #Innovation`, likes: 1800, retweets: 432, replies: 156 }
       ],
-      'Sports': [
-        { content: `What a game! ⚽ The ${theme} community is going absolutely wild right now. Incredible performance and the fans are loving every moment of it! #Sports #GameDay`, likes: 8200, retweets: 1587, replies: 431 },
-        { content: `Breaking: Major ${theme} news! 🏆 This is exactly what fans have been waiting for. The excitement is through the roof across all social platforms! #Sports #Breaking`, likes: 6100, retweets: 954, replies: 289 },
-        { content: `${theme} trending: Fan engagement up 280%, social buzz at all-time high. The passion of the community is incredible to witness! 📊 #Sports #Trending`, likes: 2800, retweets: 532, replies: 198 }
+      'Election Drama': [
+        { content: `The ${theme} continues to dominate social feeds! 🗳️ Campaign strategies and debate highlights are generating massive engagement across platforms. #Election2024 #Politics`, likes: 8200, retweets: 1587, replies: 431 },
+        { content: `Breaking: Latest ${theme} developments! 📊 Polling data and campaign updates are driving unprecedented social media activity. The political discourse is intense! #ElectionNews`, likes: 6100, retweets: 954, replies: 289 },
+        { content: `${theme} social metrics: Engagement up 280%, political discussions at all-time high. The democratic process is capturing everyone's attention! 🇺🇸 #Democracy`, likes: 2800, retweets: 532, replies: 198 }
       ],
       'default': [
-        { content: `The ${selectedTheme || 'AI'} conversation is exploding! 🔥 Seeing incredible engagement and community growth. This topic is really resonating with people right now. #${selectedTheme?.replace(/\s+/g, '') || 'Trending'} #Social`, likes: 5200, retweets: 987, replies: 231 },
-        { content: `Major developments in ${selectedTheme || 'AI'}! 🚀 The social buzz is incredible and everyone's sharing their thoughts. This is definitely the topic of the moment. #Viral #Trending`, likes: 3100, retweets: 654, replies: 189 },
-        { content: `${selectedTheme || 'AI'} trending analysis: Social mentions up 340%, positive sentiment dominating. The community engagement is absolutely phenomenal! 📈 #TrendingNow`, likes: 1800, retweets: 432, replies: 156 }
+        { content: `The ${selectedTheme || 'trending topic'} conversation is exploding! 🔥 Seeing incredible engagement and community growth. This topic is really resonating with people right now. #Trending #Social`, likes: 5200, retweets: 987, replies: 231 },
+        { content: `Major developments in ${selectedTheme || 'current trends'}! 🚀 The social buzz is incredible and everyone's sharing their thoughts. This is definitely the topic of the moment. #Viral #Trending`, likes: 3100, retweets: 654, replies: 189 },
+        { content: `${selectedTheme || 'Hot topic'} trending analysis: Social mentions up 340%, positive sentiment dominating. The community engagement is absolutely phenomenal! 📈 #TrendingNow`, likes: 1800, retweets: 432, replies: 156 }
       ]
     };
 
@@ -43,18 +43,18 @@ const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
     
     return templates.map((template, index) => ({
       id: String(index + 1),
-      author: ['Crypto Katie', 'DeFi Queen', 'Tech Analyst'][index],
-      handle: ['@cryptokatie', '@defiqueen', '@techanalyst_crypto'][index],
+      author: ['Sarah Chen', 'Marcus Data', 'Tech Insider'][index],
+      handle: ['@sarahchen_tech', '@marcusdata', '@techinsider_x'][index],
       content: template.content,
       likes: template.likes,
       retweets: template.retweets,
       replies: template.replies,
       time: ['25min', '3min', '1h'][index],
-      theme: selectedTheme || 'AI'
+      theme: selectedTheme || 'Trending'
     }));
   };
 
-  const tweets = getThemeSpecificTweets(selectedTheme || 'AI');
+  const tweets = getThemeSpecificTweets(selectedTheme || 'default');
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {
@@ -64,11 +64,11 @@ const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-crypto-purple/20 to-crypto-blue/20 border-crypto-purple/30 backdrop-blur-sm">
-      <CardHeader>
+    <Card className="bg-gradient-to-br from-crypto-purple/20 to-crypto-blue/20 border-crypto-purple/30 backdrop-blur-sm bg-slate-900">
+      <CardHeader className="bg-slate-900">
         <CardTitle className="text-white flex items-center gap-2">
           <Twitter className="h-6 w-6" />
-          {selectedTheme ? `${selectedTheme.toUpperCase()}` : 'AI'} Trending Tweets
+          {selectedTheme || 'Trending'} Tweets
         </CardTitle>
         <div className="flex items-center gap-4 text-sm">
           <span className="px-2 py-1 bg-crypto-neon-purple/20 rounded-full text-crypto-cyan">
@@ -89,7 +89,7 @@ const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
           </span>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 bg-slate-900">
         {tweets.map((tweet) => (
           <div key={tweet.id} className="p-4 bg-black/20 rounded-lg border border-crypto-purple/20 hover:border-crypto-purple/40 transition-colors">
             <div className="flex items-start gap-3">

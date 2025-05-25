@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,25 +40,43 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
   const [isCreating, setIsCreating] = useState(false);
   const { toast } = useToast();
 
+  // Generate description based on theme and token name
+  const generateDescription = (theme: string, tokenName: string) => {
+    const descriptions: { [key: string]: (name: string) => string } = {
+      'AI Agents': (name) => `• Revolutionary ${name} leveraging autonomous AI technology for intelligent automation\n• Advanced machine learning capabilities enabling self-improving token mechanisms\n• Community-driven governance powered by AI decision-making algorithms\n• Pioneering the future of decentralized artificial intelligence ecosystems`,
+      'Election Drama': (name) => `• ${name} capturing the political zeitgeist with democratic governance features\n• Transparent voting mechanisms reflecting real-world electoral processes\n• Community engagement through political discourse and debate rewards\n• Decentralized platform for political expression and civic participation`,
+      'Crypto Winter': (name) => `• ${name} designed to thrive during market downturns with deflationary mechanics\n• Bear market resilience through innovative tokenomics and community incentives\n• Strategic value accumulation during crypto winter conditions\n• Long-term holder rewards and stability-focused economic model`,
+      'Space Memes': (name) => `• ${name} reaching for the stars with cosmic-themed community initiatives\n• Interplanetary ambitions reflected in tokenomics and roadmap milestones\n• Space exploration narrative driving community engagement and growth\n• Astronomical potential with universe-scale vision and execution`,
+      'Climate Action': (name) => `• ${name} promoting environmental sustainability through green blockchain initiatives\n• Carbon-negative tokenomics supporting climate action and conservation projects\n• Community-driven environmental impact through decentralized green funding\n• Sustainable future vision with eco-friendly technology integration`,
+      'Gaming Culture': (name) => `• ${name} bridging gaming communities with play-to-earn mechanics and rewards\n• NFT integration for gaming assets and in-game utility across multiple platforms\n• Esports tournament funding and gaming ecosystem development initiatives\n• Player-owned economy empowering gamers through decentralized governance`,
+      'Tech Layoffs': (name) => `• ${name} supporting displaced tech workers through community funding and opportunities\n• Decentralized job marketplace and skill-sharing platform development\n• Innovation resilience during industry restructuring and economic uncertainty\n• Community-driven support network for technology professionals and entrepreneurs`,
+      'Viral Dances': (name) => `• ${name} celebrating viral culture with creator rewards and content monetization\n• Social media integration enabling seamless sharing and community engagement\n• Trend-based tokenomics rewarding early adopters and content creators\n• Cultural movement capturing the essence of digital expression and creativity`,
+      'Health Tech': (name) => `• ${name} revolutionizing healthcare through blockchain-based wellness incentives\n• Decentralized health data management with privacy-first approach\n• Community health initiatives funded through transparent token mechanisms\n• Medical innovation support through crowdfunded research and development`,
+      'Food Trends': (name) => `• ${name} satisfying the appetite for culinary innovation and community dining experiences\n• Restaurant and food creator support through decentralized funding mechanisms\n• Gastronomic adventures rewarded through taste-testing and review incentives\n• Culinary culture preservation and innovation through blockchain technology`
+    };
+
+    return descriptions[theme]?.(tokenName) || `• ${tokenName} capturing the essence of ${theme} through innovative blockchain technology\n• Community-driven initiatives reflecting current social and cultural trends\n• Decentralized platform for ${theme.toLowerCase()} enthusiasts and supporters\n• Revolutionary approach to combining trending topics with cryptocurrency innovation`;
+  };
+
+  // Auto-generate description when theme or name changes
+  useEffect(() => {
+    if (selectedTheme && tokenData.name) {
+      const generatedDescription = generateDescription(selectedTheme, tokenData.name);
+      setTokenData(prev => ({
+        ...prev,
+        description: generatedDescription
+      }));
+    }
+  }, [selectedTheme, tokenData.name]);
+
   // Pre-fill form when theme is selected
   useEffect(() => {
     if (selectedTheme) {
-      const themeDescriptions: { [key: string]: string } = {
-        'AI': 'Revolutionary AI-powered meme coin bringing artificial intelligence to the masses',
-        'DOGE': 'Much wow, very crypto - the original dog meme coin reborn',
-        'PEPE': 'Rare pepe meme coin for the true connoisseurs of internet culture',
-        'SHIB': 'Shiba Inu ecosystem token with community-driven governance',
-        'FLOKI': 'Viking-themed dog coin inspired by Elon Musk\'s pet',
-        'WOJAK': 'Feels good man - the emotional meme coin for every trader',
-        'TURBO': 'High-speed meme coin for the fast-paced crypto world',
-        'BONK': 'Solana\'s favorite dog coin bringing fun to DeFi'
-      };
-
+      const cleanTheme = selectedTheme.replace(/\s+/g, '');
       setTokenData(prev => ({
         ...prev,
-        name: `${selectedTheme} Agent Coin`,
-        symbol: `${selectedTheme.substring(0, 4).toUpperCase()}AI`,
-        description: themeDescriptions[selectedTheme] || `${selectedTheme}-themed AI agent meme coin`
+        name: prev.name || `${selectedTheme} Token`,
+        symbol: prev.symbol || `${cleanTheme.substring(0, 4).toUpperCase()}`,
       }));
     }
   }, [selectedTheme]);
@@ -185,9 +204,9 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
           )}
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 bg-slate-900">
         {/* Basic Token Info */}
-        <div className="space-y-4 bg-slate-900">
+        <div className="space-y-4">
           <h4 className="text-crypto-cyan font-medium">Basic Information</h4>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -215,13 +234,16 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description" className="text-gray-300">Description</Label>
+            <Label htmlFor="description" className="text-gray-300">
+              Description 
+              {selectedTheme && <span className="text-crypto-cyan text-xs ml-2">(Auto-generated based on {selectedTheme})</span>}
+            </Label>
             <Textarea 
               id="description" 
-              placeholder="Describe your AI Agent meme coin..." 
+              placeholder="Token description will be auto-generated based on theme and name..." 
               value={tokenData.description} 
               onChange={e => handleInputChange('description', e.target.value)} 
-              className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400 min-h-[100px]" 
+              className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400 min-h-[120px]" 
             />
           </div>
         </div>
@@ -279,7 +301,7 @@ const TokenForm: React.FC<TokenFormProps> = ({ wallet, selectedTheme }) => {
             disabled={!canCreate || isCreating} 
             className="w-full bg-gradient-to-r from-crypto-neon-purple to-crypto-neon-blue hover:shadow-lg hover:shadow-crypto-neon-purple/50 transition-all duration-300 h-12 text-lg font-semibold disabled:opacity-50"
           >
-            {isCreating ? 'Creating Token...' : `Create meme coin as "${tokenData.name || 'AI Agent Coin'}"`}
+            {isCreating ? 'Creating Token...' : `Create meme coin as "${tokenData.name || 'Token'}"`}
           </Button>
           
           {!wallet && (

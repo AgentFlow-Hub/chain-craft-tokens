@@ -18,7 +18,6 @@ interface Theme {
 const Index = () => {
   const [wallet, setWallet] = useState<WalletConnection | null>(null);
   const [selectedTheme, setSelectedTheme] = useState<string>('');
-  const [showTokenForm, setShowTokenForm] = useState(false);
   
   const features = [{
     icon: <Sparkles className="h-6 w-6" />,
@@ -40,7 +39,6 @@ const Index = () => {
 
   const handleThemeSelect = (theme: Theme) => {
     setSelectedTheme(theme.name);
-    setShowTokenForm(true);
   };
 
   return (
@@ -87,14 +85,12 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Token Form Section */}
-      {showTokenForm && (
-        <div className="px-6 py-8">
-          <div className="max-w-2xl mx-auto">
-            <TokenForm wallet={wallet} selectedTheme={selectedTheme} />
-          </div>
+      {/* Token Form Section - Always shown */}
+      <div className="px-6 py-8">
+        <div className="max-w-2xl mx-auto">
+          <TokenForm wallet={wallet} selectedTheme={selectedTheme} />
         </div>
-      )}
+      </div>
 
       {/* Footer */}
       <footer className="border-t border-crypto-purple/30 bg-black/20 backdrop-blur-sm">
