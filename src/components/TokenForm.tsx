@@ -134,29 +134,7 @@ const TokenForm: React.FC<TokenFormProps> = ({
         <Separator className="bg-crypto-purple/30" />
 
         {/* Tokenomics */}
-        <div className="space-y-4">
-          <h4 className="text-crypto-cyan font-medium flex items-center gap-2">
-            <Zap className="h-4 w-4" />
-            Tokenomics
-          </h4>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="totalSupply" className="text-gray-300">Total Supply *</Label>
-              <Input id="totalSupply" type="number" placeholder="1000000" value={tokenData.totalSupply} onChange={e => handleInputChange('totalSupply', e.target.value)} className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400" />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="decimals" className="text-gray-300">Decimals</Label>
-              <Input id="decimals" type="number" placeholder="18" value={tokenData.decimals} onChange={e => handleInputChange('decimals', e.target.value)} className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400" />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="burnRate" className="text-gray-300">Burn Rate (%)</Label>
-              <Input id="burnRate" type="number" placeholder="2" value={tokenData.burnMechanism} onChange={e => handleInputChange('burnMechanism', e.target.value)} className="bg-black/20 border-crypto-purple/30 text-white placeholder:text-gray-400" />
-            </div>
-          </div>
-        </div>
+        
 
         <Separator className="bg-crypto-purple/30" />
 
