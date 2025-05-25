@@ -20,14 +20,14 @@ const ThemeHeatMap: React.FC<ThemeHeatMapProps> = ({ onThemeSelect }) => {
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
   const themes: Theme[] = [
-    { name: "AI", size: 120, color: "bg-gradient-to-br from-purple-500 to-pink-500", popularity: 95, description: "Artificial Intelligence revolution" },
-    { name: "DOGE", size: 100, color: "bg-gradient-to-br from-yellow-500 to-orange-500", popularity: 88, description: "Much wow, very crypto" },
-    { name: "PEPE", size: 85, color: "bg-gradient-to-br from-green-500 to-emerald-500", popularity: 76, description: "Meme frog takeover" },
-    { name: "SHIB", size: 95, color: "bg-gradient-to-br from-orange-500 to-red-500", popularity: 82, description: "Shiba Inu ecosystem" },
-    { name: "FLOKI", size: 75, color: "bg-gradient-to-br from-blue-500 to-cyan-500", popularity: 68, description: "Viking dog adventures" },
-    { name: "WOJAK", size: 65, color: "bg-gradient-to-br from-gray-500 to-slate-500", popularity: 58, description: "Feels good man" },
-    { name: "TURBO", size: 70, color: "bg-gradient-to-br from-red-500 to-pink-500", popularity: 62, description: "Speed and efficiency" },
-    { name: "BONK", size: 60, color: "bg-gradient-to-br from-yellow-400 to-orange-400", popularity: 54, description: "Solana's favorite dog" }
+    { name: "AI Agents", size: 120, color: "bg-gradient-to-br from-purple-500 to-pink-500", popularity: 95, description: "Autonomous AI agents revolutionizing crypto" },
+    { name: "Memes", size: 100, color: "bg-gradient-to-br from-yellow-500 to-orange-500", popularity: 88, description: "Viral meme culture taking over social media" },
+    { name: "DeFi", size: 95, color: "bg-gradient-to-br from-blue-500 to-cyan-500", popularity: 82, description: "Decentralized finance innovations" },
+    { name: "Gaming", size: 85, color: "bg-gradient-to-br from-green-500 to-emerald-500", popularity: 76, description: "Web3 gaming and metaverse trends" },
+    { name: "NFTs", size: 75, color: "bg-gradient-to-br from-orange-500 to-red-500", popularity: 68, description: "Digital collectibles and art" },
+    { name: "RWA", size: 70, color: "bg-gradient-to-br from-indigo-500 to-purple-500", popularity: 62, description: "Real World Assets tokenization" },
+    { name: "Layer 2", size: 65, color: "bg-gradient-to-br from-teal-500 to-blue-500", popularity: 58, description: "Scaling solutions and infrastructure" },
+    { name: "DAO", size: 60, color: "bg-gradient-to-br from-pink-500 to-rose-500", popularity: 54, description: "Decentralized governance communities" }
   ];
 
   const handleThemeClick = (theme: Theme) => {
