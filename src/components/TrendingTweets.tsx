@@ -20,41 +20,41 @@ interface TrendingTweetsProps {
 }
 
 const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
-  const tweets: Tweet[] = [
-    {
-      id: '1',
-      author: 'Crypto Katie',
-      handle: '@cryptokatie',
-      content: `The ${selectedTheme || 'AI Agents'} narrative is heating up! 🔥 Seeing massive community growth and dev activity. This space is evolving rapidly - stay informed and DYOR before making any moves! #${selectedTheme?.replace(/\s+/g, '') || 'AIAgents'} #Crypto`,
-      likes: 5200,
-      retweets: 987,
-      replies: 231,
-      time: '25min',
-      theme: selectedTheme || 'AI Agents'
-    },
-    {
-      id: '2',
-      author: 'DeFi Queen',
-      handle: '@defiqueen',
-      content: `Major breakthrough in ${selectedTheme || 'AI Agents'} technology! The latest developments show incredible potential for mainstream adoption. Community sentiment is overwhelmingly bullish 📈 #Innovation #Web3`,
-      likes: 3100,
-      retweets: 654,
-      replies: 189,
-      time: '3min',
-      theme: selectedTheme || 'AI Agents'
-    },
-    {
-      id: '3',
-      author: 'Tech Analyst',
-      handle: '@techanalyst_crypto',
-      content: `${selectedTheme || 'AI Agents'} trending analysis: 3-day social volume up 340%, sentiment positive, key influencers discussing potential. This could be the start of something big 🚀 Always manage risk! #DataDriven`,
-      likes: 1800,
-      retweets: 432,
-      replies: 156,
-      time: '1h',
-      theme: selectedTheme || 'AI Agents'
-    }
-  ];
+  const getThemeSpecificTweets = (theme: string): Tweet[] => {
+    const tweetTemplates = {
+      'AI': [
+        { content: `The ${theme} revolution is here! 🤖 Latest breakthroughs in machine learning are changing everything. The community is buzzing with excitement about the potential applications. #AI #MachineLearning #Tech`, likes: 5200, retweets: 987, replies: 231 },
+        { content: `Major ${theme} announcement today! 🚀 The implications for automation and productivity are massive. Everyone's talking about the future possibilities. #ArtificialIntelligence #Innovation`, likes: 3100, retweets: 654, replies: 189 },
+        { content: `${theme} trending analysis: Social engagement up 340%, sentiment overwhelmingly positive. This technology is capturing everyone's imagination! 📈 #AI #TechTrends`, likes: 1800, retweets: 432, replies: 156 }
+      ],
+      'Sports': [
+        { content: `What a game! ⚽ The ${theme} community is going absolutely wild right now. Incredible performance and the fans are loving every moment of it! #Sports #GameDay`, likes: 8200, retweets: 1587, replies: 431 },
+        { content: `Breaking: Major ${theme} news! 🏆 This is exactly what fans have been waiting for. The excitement is through the roof across all social platforms! #Sports #Breaking`, likes: 6100, retweets: 954, replies: 289 },
+        { content: `${theme} trending: Fan engagement up 280%, social buzz at all-time high. The passion of the community is incredible to witness! 📊 #Sports #Trending`, likes: 2800, retweets: 532, replies: 198 }
+      ],
+      'default': [
+        { content: `The ${selectedTheme || 'AI'} conversation is exploding! 🔥 Seeing incredible engagement and community growth. This topic is really resonating with people right now. #${selectedTheme?.replace(/\s+/g, '') || 'Trending'} #Social`, likes: 5200, retweets: 987, replies: 231 },
+        { content: `Major developments in ${selectedTheme || 'AI'}! 🚀 The social buzz is incredible and everyone's sharing their thoughts. This is definitely the topic of the moment. #Viral #Trending`, likes: 3100, retweets: 654, replies: 189 },
+        { content: `${selectedTheme || 'AI'} trending analysis: Social mentions up 340%, positive sentiment dominating. The community engagement is absolutely phenomenal! 📈 #TrendingNow`, likes: 1800, retweets: 432, replies: 156 }
+      ]
+    };
+
+    const templates = tweetTemplates[theme as keyof typeof tweetTemplates] || tweetTemplates.default;
+    
+    return templates.map((template, index) => ({
+      id: String(index + 1),
+      author: ['Crypto Katie', 'DeFi Queen', 'Tech Analyst'][index],
+      handle: ['@cryptokatie', '@defiqueen', '@techanalyst_crypto'][index],
+      content: template.content,
+      likes: template.likes,
+      retweets: template.retweets,
+      replies: template.replies,
+      time: ['25min', '3min', '1h'][index],
+      theme: selectedTheme || 'AI'
+    }));
+  };
+
+  const tweets = getThemeSpecificTweets(selectedTheme || 'AI');
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {
@@ -68,7 +68,7 @@ const TrendingTweets: React.FC<TrendingTweetsProps> = ({ selectedTheme }) => {
       <CardHeader>
         <CardTitle className="text-white flex items-center gap-2">
           <Twitter className="h-6 w-6" />
-          {selectedTheme ? `${selectedTheme.toUpperCase()}` : 'AI AGENTS'} Trending Tweets
+          {selectedTheme ? `${selectedTheme.toUpperCase()}` : 'AI'} Trending Tweets
         </CardTitle>
         <div className="flex items-center gap-4 text-sm">
           <span className="px-2 py-1 bg-crypto-neon-purple/20 rounded-full text-crypto-cyan">

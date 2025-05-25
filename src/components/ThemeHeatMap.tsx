@@ -20,14 +20,16 @@ const ThemeHeatMap: React.FC<ThemeHeatMapProps> = ({ onThemeSelect }) => {
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
   const themes: Theme[] = [
-    { name: "AI Agents", size: 120, color: "bg-gradient-to-br from-purple-500 to-pink-500", popularity: 95, description: "Autonomous AI agents revolutionizing crypto" },
-    { name: "Memes", size: 100, color: "bg-gradient-to-br from-yellow-500 to-orange-500", popularity: 88, description: "Viral meme culture taking over social media" },
-    { name: "DeFi", size: 95, color: "bg-gradient-to-br from-blue-500 to-cyan-500", popularity: 82, description: "Decentralized finance innovations" },
-    { name: "Gaming", size: 85, color: "bg-gradient-to-br from-green-500 to-emerald-500", popularity: 76, description: "Web3 gaming and metaverse trends" },
-    { name: "NFTs", size: 75, color: "bg-gradient-to-br from-orange-500 to-red-500", popularity: 68, description: "Digital collectibles and art" },
-    { name: "RWA", size: 70, color: "bg-gradient-to-br from-indigo-500 to-purple-500", popularity: 62, description: "Real World Assets tokenization" },
-    { name: "Layer 2", size: 65, color: "bg-gradient-to-br from-teal-500 to-blue-500", popularity: 58, description: "Scaling solutions and infrastructure" },
-    { name: "DAO", size: 60, color: "bg-gradient-to-br from-pink-500 to-rose-500", popularity: 54, description: "Decentralized governance communities" }
+    { name: "AI", size: 120, color: "bg-gradient-to-br from-purple-500 to-pink-500", popularity: 95, description: "Artificial Intelligence discussions and breakthroughs" },
+    { name: "Sports", size: 110, color: "bg-gradient-to-br from-green-500 to-emerald-500", popularity: 92, description: "Latest sports news and highlights" },
+    { name: "Tech", size: 105, color: "bg-gradient-to-br from-blue-500 to-cyan-500", popularity: 88, description: "Technology trends and innovations" },
+    { name: "Gaming", size: 100, color: "bg-gradient-to-br from-orange-500 to-red-500", popularity: 85, description: "Gaming community and new releases" },
+    { name: "Climate", size: 90, color: "bg-gradient-to-br from-green-600 to-teal-500", popularity: 78, description: "Climate change and environmental discussions" },
+    { name: "Politics", size: 85, color: "bg-gradient-to-br from-red-500 to-pink-500", popularity: 75, description: "Political news and debates" },
+    { name: "Memes", size: 80, color: "bg-gradient-to-br from-yellow-500 to-orange-500", popularity: 72, description: "Viral memes and internet culture" },
+    { name: "Finance", size: 75, color: "bg-gradient-to-br from-indigo-500 to-purple-500", popularity: 68, description: "Financial markets and investment trends" },
+    { name: "Health", size: 70, color: "bg-gradient-to-br from-teal-500 to-blue-500", popularity: 65, description: "Health and wellness discussions" },
+    { name: "Movies", size: 65, color: "bg-gradient-to-br from-pink-500 to-rose-500", popularity: 62, description: "Film industry news and reviews" }
   ];
 
   const handleThemeClick = (theme: Theme) => {
