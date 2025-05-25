@@ -1,10 +1,13 @@
+
 import React, { useState } from 'react';
 import WalletConnect from '@/components/WalletConnect';
 import TokenForm from '@/components/TokenForm';
 import { WalletConnection } from '@/utils/wallet';
 import { Sparkles, Rocket, Shield, Zap } from 'lucide-react';
+
 const Index = () => {
   const [wallet, setWallet] = useState<WalletConnection | null>(null);
+  
   const features = [{
     icon: <Sparkles className="h-6 w-6" />,
     title: "AI-Powered",
@@ -22,7 +25,9 @@ const Index = () => {
     title: "Deflationary",
     description: "Built-in burn mechanisms to increase token value over time"
   }];
-  return <div className="min-h-screen bg-crypto-dark">
+
+  return (
+    <div className="min-h-screen bg-crypto-dark">
       {/* Top Header with Wallet Connection */}
       <header className="relative z-10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-end">
@@ -40,7 +45,28 @@ const Index = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Quick Stats - Sidebar */}
-            
+            <div className="lg:col-span-1">
+              <div className="sticky top-6">
+                {/* Quick Stats */}
+                <div className="p-6 bg-gradient-to-br from-crypto-purple/10 to-crypto-blue/10 rounded-xl border border-crypto-purple/20 backdrop-blur-sm">
+                  <h3 className="text-white font-semibold mb-4">Platform Stats</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Tokens Created:</span>
+                      <span className="text-crypto-cyan font-mono">1,247</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Total Value Locked:</span>
+                      <span className="text-crypto-cyan font-mono">$2.4M</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Active Users:</span>
+                      <span className="text-crypto-cyan font-mono">8,945</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Token Creation Form - Main Content */}
             <div className="lg:col-span-2">
@@ -71,6 +97,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
